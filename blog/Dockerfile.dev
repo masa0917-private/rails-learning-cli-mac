@@ -22,7 +22,7 @@ RUN apt-get update -qq && \
 ENV RAILS_ENV=development \
     BUNDLE_PATH=/usr/local/bundle
 
-COPY Gemfile Gemfile.lock ./
+COPY Gemfile* ./
 RUN bundle install --jobs 4 --retry 3
 
 COPY . .
