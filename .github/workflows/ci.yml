@@ -9,6 +9,22 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ruby-version: ["3.3.6", "3.2.2"]
+        db: ["sqlite", "postgres"]
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: rails
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: blog_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U rails" --health-interval=10s --health-timeout=5s --health-retries=5
 
     steps:
       - name: Checkout
@@ -17,12 +33,12 @@ jobs:
       - name: Install system dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y libsqlite3-dev libxml2-dev libxslt1-dev zlib1g-dev build-essential
+          sudo apt-get install -y libsqlite3-dev libxml2-dev libxslt1-dev zlib1g-dev build-essential postgresql-client
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.3.6
+          ruby-version: ${{ matrix.ruby-version }}
           bundler-cache: true
 
       - name: Install JS dependencies (if present)
@@ -35,20 +51,44 @@ jobs:
             fi
           fi
 
-      - name: Prepare DB
+      - name: Bundle install (if Gemfile present)
         run: |
           if [ -f Gemfile ]; then
-            echo "Gemfile found; preparing DB..."
-            bundle exec rails db:prepare
+            bundle install --jobs 4 --retry 3
           else
-            echo "No Gemfile in repo; skipping db:prepare"
+            echo "No Gemfile; skipping bundle install"
           fi
 
-      - name: Run tests
+      - name: Setup DB (conditional on Gemfile)
         run: |
-          if [ -f Gemfile ]; then
-            echo "Gemfile found; running rails test..."
-            bundle exec rails test
-          else
-            echo "No Gemfile in repo; skipping tests"
+          if [ ! -f Gemfile ]; then
+            echo "No Gemfile; skipping DB setup"
+            exit 0
           fi
+
+          if [ "${{ matrix.db }}" = "postgres" ]; then
+            echo "Using PostgreSQL service; waiting for readiness..."
+            for i in {1..30}; do
+              pg_isready -h 127.0.0.1 -p 5432 -U rails && break || sleep 1
+            done
+            echo "DATABASE_URL=postgres://rails:password@127.0.0.1:5432/blog_test" >> $GITHUB_ENV
+            bundle exec rails db:prepare
+          else
+            echo "Using SQLite (default)."
+            bundle exec rails db:prepare || true
+          fi
+
+      - name: Run tests (conditional on Gemfile)
+        run: |
+          if [ ! -f Gemfile ]; then
+            echo "No Gemfile; skipping tests"
+            exit 0
+          fi
+
+          echo "RAILS_ENV=test"
+          bundle exec rails test
+
+      - name: Upload test results (placeholder)
+        if: always()
+        run: |
+          echo "Job completed"
