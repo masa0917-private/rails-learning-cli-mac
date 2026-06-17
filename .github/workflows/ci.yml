@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libsqlite3-dev libxml2-dev libxslt1-dev zlib1g-dev build-essential
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.3.6
+          bundler-cache: true
+
+      - name: Install JS dependencies (if present)
+        run: |
+          if [ -f package.json ]; then
+            if command -v yarn >/dev/null 2>&1; then
+              yarn install --frozen-lockfile || true
+            else
+              npm ci || true
+            fi
+          fi
+
+      - name: Prepare DB
+        run: bundle exec rails db:prepare
+
+      - name: Run tests
+        run: bundle exec rails test
