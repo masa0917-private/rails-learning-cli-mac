@@ -1,6 +1,6 @@
 # Makefile - convenience targets for CLI-first Rails + Docker Compose
 
-.PHONY: build buildx up up-detach down rebuild db-prepare console test shell ps rake
+.PHONY: help build buildx up up-detach down rebuild db-prepare console test shell ps rake
 
 build:
 	docker compose build
@@ -36,6 +36,21 @@ rake:
 
 shell:
 	docker compose exec web bash
+
+help:
+	@echo "Available targets:"
+	@echo "  help        - Show this help"
+	@echo "  build       - docker compose build"
+	@echo "  buildx      - buildx multi-arch image (Apple Silicon)"
+	@echo "  up          - docker compose up"
+	@echo "  up-detach   - docker compose up -d"
+	@echo "  down        - docker compose down"
+	@echo "  rebuild     - docker compose up --build"
+	@echo "  db-prepare  - docker compose run --rm web ./bin/rails db:prepare"
+	@echo "  console     - docker compose run --rm web ./bin/rails console"
+	@echo "  test        - docker compose run --rm web ./bin/rails test"
+	@echo "  shell       - docker compose exec web bash"
+	@echo "  ps          - docker compose ps"
 
 ps:
 	docker compose ps
