@@ -124,6 +124,33 @@ Specification（詳細仕様）:
 
 (この README は Specification.md の要旨とサンプルを含みます。実運用では Specification.md が正本です。)
 
+---
+
+学習開始手順（このリポジトリを利用する場合）
+
+1. このリポジトリをクローンまたは最新に pull する
+2. ローカルで Rails アプリを生成する（コンテナ経由推奨）:
+   docker run --rm -v "$PWD":/rails -w /rails ruby:3.3 bash -lc "gem install rails -v 7.1 --no-document && rails new blog --skip-bundle"
+3. blog ディレクトリへ移動し、.ruby-version を確認（Specification.md と一致させる）
+4. make build  (または make buildx)
+5. make db-prepare
+6. make up   → http://localhost:3000 を開く
+
+CI の期待値と解釈
+
+- このリポジトリの CI は .github/workflows/ci.yml に定義されています。Ruby バージョンのマトリクス(3.3.6/3.2.2)と DB マトリクス(sqlite/postgres)でテストを実行します。
+- ワークフローは "Gemfile が無い場合は db:prepare/test をスキップ" する保護を備えています。つまり、サンプルアプリ（blog）をコミットすると初めて CI が実動します。
+- CI バッジ（README 上部）で成功/失敗を確認してください。失敗時は Actions のランログを開き、最初に失敗したステップの標準出力を確認します。
+
+トラブルシュート（よくある問題）
+
+- "Could not locate Gemfile": カレントディレクトリが app のルートであることを確認（docker compose run は blog 配下で実行）
+- ネイティブ gem ビルドエラー: Dockerfile.dev に libxml2-dev, libxslt1-dev, zlib1g-dev, build-essential を追加して再ビルド
+- Apple Silicon (M1/M2) のアーキ違い: make buildx を使う、または compose で platform: linux/arm64 を指定
+- bind mount が遅い(macOS): volumes に ":delegated" を付ける、Docker Desktop の gRPC FUSE を検討
+
+補足: Specification.md が正本です。README はクイックスタートと要点をまとめたものです。
+
 このリポジトリは「CLI中心・Docker Composeで隔離されたRails学習環境」を目的としたテンプレート／仕様です。
 
 Prerequisites
