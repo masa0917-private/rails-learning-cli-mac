@@ -1,0 +1,32 @@
+# Ruby / Rails
+/.bundle
+/vendor/bundle
+/log/*
+/tmp/*
+/db/*.sqlite3
+/public/packs
+/node_modules/
+.byebug_history
+
+# Environment
+.env
+.env.*
+
+# macOS
+.DS_Store
+
+# Editor
+.vscode/
+.idea/
+
+# Coverage / test
+/coverage/
+
+# Bundler
+.bundle/
+
+# Local build artifacts
+/tmp
+
+# Ignore Docker volumes data directories if created locally
+/postgres_data
