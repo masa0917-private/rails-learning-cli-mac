@@ -20,8 +20,10 @@
 
 ## 現状（進捗）
 - Specification.md、README、Makefile、CI ワークフローを整備
-- サンプル app `blog/` を生成し、Dockerfile.dev と compose.yaml を追加してローカルで起動済み
-- CI を追加（Ruby/DB matrix）、Gemfile 無し時の保護を実装
+- サンプル app `blog/`（Rails 7.1 / Ruby 3.3.11 / SQLite）を生成・コミットし、Dockerfile.dev と compose.yaml を追加してローカルで起動済み（HTTP 200 確認）
+- `blog/Gemfile.lock` を生成・コミット
+- CI は `blog/` を作業ディレクトリとして Ruby 3.3.11 + SQLite で `db:prepare` と `rails test` を実行（実テストが走る構成）
+- Makefile は `blog/compose.yaml` を対象に動作（`docker compose -f blog/compose.yaml ...`）
 
 ## 次のアクション
 - Rails Guides: Getting Started を blog/ 上で実施

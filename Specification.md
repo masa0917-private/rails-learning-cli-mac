@@ -125,6 +125,8 @@
 
 ## 6.1 新規 app 生成
 
+> 注: 本リポジトリにはサンプルアプリ `blog/`（Rails 7.1 / Ruby 3.3.11 / SQLite）が既に同梱されています。以下は生成手順の記録であり、再生成は不要です。Compose コマンドは `~/Documents/Rails/blog/` 配下、またはルートの `make`（`docker compose -f blog/compose.yaml ...`）経由で実行します。
+
 ```bash
 mkdir -p ~/Documents/Rails
 cd ~/Documents/Rails
@@ -157,7 +159,7 @@ flowchart LR
 
 ```dockerfile
 # Development image (works on Intel and Apple Silicon when built for the correct platform)
-ARG RUBY_VERSION=3.3.6
+ARG RUBY_VERSION=3.3.11
 FROM docker.io/library/ruby:${RUBY_VERSION}-slim
 
 WORKDIR /rails
@@ -182,8 +184,8 @@ RUN apt-get update -qq && \
 ENV RAILS_ENV=development \
     BUNDLE_PATH=/usr/local/bundle
 
-COPY Gemfile Gemfile.lock ./
-RUN bundle install
+COPY Gemfile* ./
+RUN bundle install --jobs 4 --retry 3
 
 COPY . .
 
@@ -539,6 +541,8 @@ erDiagram
 ---
 
 ## 10. PostgreSQL 移行仕様
+
+> 注: この章は **発展（将来）課題** です。現在のサンプルアプリ `blog/` は SQLite 構成であり、CI も SQLite でのみ実行します。PostgreSQL への移行は学習後半で着手する想定で、`blog/` にはまだ適用されていません。
 
 ## 10.1 移行理由
 

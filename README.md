@@ -12,7 +12,7 @@
 Prerequisites
 - Docker Desktop（macOS/Windows/Linux）
 - docker compose（Docker Desktop に同梱）
-- `rails-new` で初期アプリを生成（例: `rails-new blog`）
+- サンプルアプリ `blog/`（Rails 7.1 / Ruby 3.3.11 / SQLite）は本リポジトリに同梱済み
 
 リポジトリ構成（例）
 
@@ -56,20 +56,18 @@ flowchart TD
     W3 --> W4[Week 4: Routing/Controller/View]
 ```
 
-素早い開始（例）
+素早い開始（このリポジトリの blog/ を使う）
 
-1) 初期 app を生成
+サンプルアプリ `blog/` は既に含まれています。以下はリポジトリのルートから実行します。
 
 ```bash
-mkdir -p ~/Documents/Rails
-cd ~/Documents/Rails
-rails-new blog
-cd blog
+git clone https://github.com/masa0917-private/rails-learning-cli-mac.git
+cd rails-learning-cli-mac
 ```
 
-2) compose.yaml と Dockerfile.dev を用意（Specification.md を参照）
+compose.yaml と Dockerfile.dev は `blog/` 配下に用意済みです（詳細は Specification.md を参照）。
 
-compose の最小例（README 用サンプル）
+compose の最小例（参考）
 
 ```yaml
 services:
@@ -88,25 +86,26 @@ services:
     tty: true
 ```
 
-3) ビルド・DB準備・起動
+ビルド・DB準備・起動（ルートから make を実行）
 
 ```bash
-make build      # または: docker compose build
+make build      # docker compose -f blog/compose.yaml build
 make db-prepare # rails db:prepare を実行
 make up         # docker compose up
 ```
 
-Makefile の主なターゲット
+Makefile の主なターゲット（すべて blog/compose.yaml を対象に動作）
 
 - make build        : docker compose build
 - make buildx       : buildx を用いたマルチアーキビルド（Apple Silicon 向け）
 - make up           : docker compose up
 - make up-detach    : docker compose up -d
 - make down         : docker compose down
-- make db-prepare   : docker compose run --rm web ./bin/rails db:prepare
-- make console      : docker compose run --rm web ./bin/rails console
-- make test         : docker compose run --rm web ./bin/rails test
-- make shell        : docker compose exec web bash
+- make db-prepare   : rails db:prepare を実行
+- make console      : rails console を起動
+- make test         : rails test を実行
+- make shell        : web コンテナで bash を起動
+- make logs         : コンテナのログを表示
 - make help         : ヘルプを表示
 
 Apple Silicon (M1/M2) 注意点
@@ -128,18 +127,19 @@ Specification（詳細仕様）:
 
 学習開始手順（このリポジトリを利用する場合）
 
+サンプルアプリ `blog/`（Rails 7.1 / Ruby 3.3.11 / SQLite）は既にこのリポジトリに含まれています。新規に生成する必要はありません。
+
 1. このリポジトリをクローンまたは最新に pull する
-2. ローカルで Rails アプリを生成する（コンテナ経由推奨）:
-   docker run --rm -v "$PWD":/rails -w /rails ruby:3.3 bash -lc "gem install rails -v 7.1 --no-document && rails new blog --skip-bundle"
-3. blog ディレクトリへ移動し、.ruby-version を確認（Specification.md と一致させる）
-4. make build  (または make buildx)
-5. make db-prepare
-6. make up   → http://localhost:3000 を開く
+2. make build  (または make buildx)
+3. make db-prepare
+4. make up   → http://localhost:3000 を開く
+
+補足: Makefile は `blog/compose.yaml` を対象に動作します（`docker compose -f blog/compose.yaml ...`）。リポジトリのルートから `make` を実行してください。
 
 CI の期待値と解釈
 
-- このリポジトリの CI は .github/workflows/ci.yml に定義されています。Ruby バージョンのマトリクス(3.3.6/3.2.2)と DB マトリクス(sqlite/postgres)でテストを実行します。
-- ワークフローは "Gemfile が無い場合は db:prepare/test をスキップ" する保護を備えています。つまり、サンプルアプリ（blog）をコミットすると初めて CI が実動します。
+- このリポジトリの CI は .github/workflows/ci.yml に定義されています。`blog/` を作業ディレクトリとして、Ruby 3.3.11 + SQLite でテストを実行します。
+- サンプルアプリ `blog/` が含まれているため、CI は実際に `rails db:prepare` と `rails test` を実行します。
 - CI バッジ（README 上部）で成功/失敗を確認してください。失敗時は Actions のランログを開き、最初に失敗したステップの標準出力を確認します。
 
 Start here — Rails チュートリアルの開始点
@@ -156,36 +156,5 @@ Start here — Rails チュートリアルの開始点
 - bind mount が遅い(macOS): volumes に ":delegated" を付ける、Docker Desktop の gRPC FUSE を検討
 
 補足: Specification.md が正本です。README はクイックスタートと要点をまとめたものです。
-
-このリポジトリは「CLI中心・Docker Composeで隔離されたRails学習環境」を目的としたテンプレート／仕様です。
-
-Prerequisites
-- Docker Desktop（macOSの場合は Apple Silicon/Intel に対応）
-- docker compose（Docker Desktop に同梱）
-- `rails-new` で初期アプリを生成済み（例: `rails-new blog`）
-
-素早い開始（Makefile を推奨）
-
-# ビルド
-make build
-
-# 起動（フォアグラウンド）
-make up
-
-# 起動（デタッチ）
-make up-detach
-
-# DB準備
-make db-prepare
-
-# コンテナに入る
-make shell
-
-# テスト
-make test
-
-Apple Silicon (M1/M2) 注意
-- 初回にマルチプラットフォームイメージが必要な場合は `make buildx` を使ってください。
-- macOS では bind-mount の性能に注意。:delegated を使うと改善する場合があります。
 
 参考: Specification.md を先に読み、手順に従ってください。

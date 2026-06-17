@@ -1,72 +1,76 @@
-# Makefile - convenience targets for CLI-first Rails + Docker Compose
+# Makefile - repository-level wrappers for the sample app in blog/
 
-.PHONY: help build buildx up up-detach down rebuild db-prepare console test shell ps rake
+APP_DIR := blog
+COMPOSE := docker compose -f $(APP_DIR)/compose.yaml
+
+.PHONY: help build buildx setup lint rubocop yarn-install up up-detach down rebuild db-prepare console test shell ps rake logs
 
 build:
-	docker compose build
+	$(COMPOSE) build
 
-# Build multi-arch image (useful on Apple Silicon)
+# Build multi-arch image for the sample app (useful on Apple Silicon)
 buildx:
 	docker buildx create --use --name rbx || true
-	docker buildx build --platform linux/arm64,linux/amd64 --load -t rails-blog:dev .
+	docker buildx build --platform linux/arm64,linux/amd64 --load -t blog-web:dev -f $(APP_DIR)/Dockerfile.dev $(APP_DIR)
 
-# Convenience: install gems / JS deps
 setup:
-	@echo "Installing Ruby gems and JS dependencies inside container..."
-	@docker compose run --rm web bundle install || true
-	@if [ -f package.json ]; then docker compose run --rm web sh -c "[ -x \"/usr/bin/yarn\" ] && yarn install || (npm install || true)"; fi
+	$(COMPOSE) run --rm web bundle install
 
-# Linting and formatting
 lint:
-	@echo "Running rubocop (if installed) inside container..."
-	docker compose run --rm web bundle exec rubocop || true
+	$(COMPOSE) run --rm web bundle exec rubocop
 
 rubocop: lint
 
 yarn-install:
-	docker compose run --rm web yarn install
+	$(COMPOSE) run --rm web yarn install
 
 up:
-	docker compose up
+	$(COMPOSE) up
 
 up-detach:
-	docker compose up -d
+	$(COMPOSE) up -d
 
 down:
-	docker compose down
+	$(COMPOSE) down
 
 rebuild:
-	docker compose up --build
+	$(COMPOSE) up --build
 
 db-prepare:
-	docker compose run --rm web ./bin/rails db:prepare
+	$(COMPOSE) run --rm web ./bin/rails db:prepare
 
 console:
-	docker compose run --rm web ./bin/rails console
+	$(COMPOSE) run --rm web ./bin/rails console
 
 test:
-	docker compose run --rm web ./bin/rails test
+	$(COMPOSE) run --rm web ./bin/rails test
 
 rake:
-	docker compose run --rm web bundle exec rake
+	$(COMPOSE) run --rm web bundle exec rake
 
 shell:
-	docker compose exec web bash
+	$(COMPOSE) exec web bash
+
+logs:
+	$(COMPOSE) logs --no-color --tail=200
 
 help:
 	@echo "Available targets:"
 	@echo "  help        - Show this help"
-	@echo "  build       - docker compose build"
-	@echo "  buildx      - buildx multi-arch image (Apple Silicon)"
-	@echo "  up          - docker compose up"
-	@echo "  up-detach   - docker compose up -d"
-	@echo "  down        - docker compose down"
-	@echo "  rebuild     - docker compose up --build"
-	@echo "  db-prepare  - docker compose run --rm web ./bin/rails db:prepare"
-	@echo "  console     - docker compose run --rm web ./bin/rails console"
-	@echo "  test        - docker compose run --rm web ./bin/rails test"
-	@echo "  shell       - docker compose exec web bash"
-	@echo "  ps          - docker compose ps"
+	@echo "  build       - Build the sample app image in blog/"
+	@echo "  buildx      - Multi-arch build for blog/ (Apple Silicon)"
+	@echo "  setup       - bundle install inside the blog container"
+	@echo "  lint        - Run rubocop inside the blog container"
+	@echo "  up          - Start the sample app"
+	@echo "  up-detach   - Start the sample app in background"
+	@echo "  down        - Stop the sample app"
+	@echo "  rebuild     - Rebuild and start the sample app"
+	@echo "  db-prepare  - Run rails db:prepare for blog/"
+	@echo "  console     - Open rails console for blog/"
+	@echo "  test        - Run rails test for blog/"
+	@echo "  shell       - Open a shell in the running blog container"
+	@echo "  logs        - Show recent container logs"
+	@echo "  ps          - Show compose status"
 
 ps:
-	docker compose ps
+	$(COMPOSE) ps
