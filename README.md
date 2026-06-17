@@ -142,6 +142,12 @@ CI の期待値と解釈
 - ワークフローは "Gemfile が無い場合は db:prepare/test をスキップ" する保護を備えています。つまり、サンプルアプリ（blog）をコミットすると初めて CI が実動します。
 - CI バッジ（README 上部）で成功/失敗を確認してください。失敗時は Actions のランログを開き、最初に失敗したステップの標準出力を確認します。
 
+Start here — Rails チュートリアルの開始点
+
+- 公式チュートリアル（Getting Started）を最初に行ってください: https://guides.rubyonrails.org/getting_started.html
+- 推奨フロー: Specification.md を読み、リポジトリ内の `blog/` を使ってローカルで手を動かしながら進めると良いです。
+- 週次チェック: CI は週次で自動実行されます（Schedule: Sunday 00:00 UTC）。ローカル変更は push して CI をトリガーしてください。
+
 トラブルシュート（よくある問題）
 
 - "Could not locate Gemfile": カレントディレクトリが app のルートであることを確認（docker compose run は blog 配下で実行）
