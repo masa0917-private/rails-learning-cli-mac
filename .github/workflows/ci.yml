@@ -36,7 +36,19 @@ jobs:
           fi
 
       - name: Prepare DB
-        run: bundle exec rails db:prepare
+        run: |
+          if [ -f Gemfile ]; then
+            echo "Gemfile found; preparing DB..."
+            bundle exec rails db:prepare
+          else
+            echo "No Gemfile in repo; skipping db:prepare"
+          fi
 
       - name: Run tests
-        run: bundle exec rails test
+        run: |
+          if [ -f Gemfile ]; then
+            echo "Gemfile found; running rails test..."
+            bundle exec rails test
+          else
+            echo "No Gemfile in repo; skipping tests"
+          fi

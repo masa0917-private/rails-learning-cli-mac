@@ -1,3 +1,5 @@
+[![CI](https://github.com/masa0917-private/rails-learning-cli-mac/actions/workflows/ci.yml/badge.svg)](https://github.com/masa0917-private/rails-learning-cli-mac/actions/workflows/ci.yml)
+
 # Rails (CLI + Docker Compose) 学習リポジトリ
 
 このリポジトリは「CLI中心・Docker Composeで隔離されたRails学習環境」を目的としたテンプレート／仕様です。
