@@ -95,20 +95,21 @@
 
 ```text
 ~/Documents/Rails/
-  └── blog/
-      ├── Dockerfile
-      ├── Dockerfile.dev
-      ├── compose.yaml
-      ├── .dockerignore
-      ├── Gemfile
-      ├── Gemfile.lock
-      ├── app/
-      ├── bin/
-      ├── config/
-      ├── db/
-      ├── storage/
-      ├── test/
-      └── tmp/
+  └── blog-app/
+      └── blog/
+          ├── Dockerfile
+          ├── Dockerfile.dev
+          ├── compose.yaml
+          ├── .dockerignore
+          ├── Gemfile
+          ├── Gemfile.lock
+          ├── app/
+          ├── bin/
+          ├── config/
+          ├── db/
+          ├── storage/
+          ├── test/
+          └── tmp/
 ```
 
 ### 役割
@@ -126,8 +127,8 @@
 ## 6.1 新規 app 生成
 
 ```bash
-mkdir -p ~/Documents/Rails
-cd ~/Documents/Rails
+mkdir -p ~/Documents/Rails/blog-app
+cd ~/Documents/Rails/blog-app
 rails-new blog
 cd blog
 ```

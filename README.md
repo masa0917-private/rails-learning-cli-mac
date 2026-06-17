@@ -18,20 +18,21 @@ Prerequisites
 
 ```text
 ~/Documents/Rails/
-  └── blog/
-      ├── Dockerfile
-      ├── Dockerfile.dev
-      ├── compose.yaml
-      ├── .dockerignore
-      ├── Gemfile
-      ├── Gemfile.lock
-      ├── app/
-      ├── bin/
-      ├── config/
-      ├── db/
-      ├── storage/
-      ├── test/
-      └── tmp/
+  └── blog-app/
+      └── blog/
+          ├── Dockerfile
+          ├── Dockerfile.dev
+          ├── compose.yaml
+          ├── .dockerignore
+          ├── Gemfile
+          ├── Gemfile.lock
+          ├── app/
+          ├── bin/
+          ├── config/
+          ├── db/
+          ├── storage/
+          ├── test/
+          └── tmp/
 ```
 
 ER図サンプル（Step 5: 単一モデル CRUD）
@@ -61,8 +62,8 @@ flowchart TD
 1) 初期 app を生成
 
 ```bash
-mkdir -p ~/Documents/Rails
-cd ~/Documents/Rails
+mkdir -p ~/Documents/Rails/blog-app
+cd ~/Documents/Rails/blog-app
 rails-new blog
 cd blog
 ```
