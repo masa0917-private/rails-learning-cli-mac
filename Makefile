@@ -10,6 +10,22 @@ buildx:
 	docker buildx create --use --name rbx || true
 	docker buildx build --platform linux/arm64,linux/amd64 --load -t rails-blog:dev .
 
+# Convenience: install gems / JS deps
+setup:
+	@echo "Installing Ruby gems and JS dependencies inside container..."
+	@docker compose run --rm web bundle install || true
+	@if [ -f package.json ]; then docker compose run --rm web sh -c "[ -x \"/usr/bin/yarn\" ] && yarn install || (npm install || true)"; fi
+
+# Linting and formatting
+lint:
+	@echo "Running rubocop (if installed) inside container..."
+	docker compose run --rm web bundle exec rubocop || true
+
+rubocop: lint
+
+yarn-install:
+	docker compose run --rm web yarn install
+
 up:
 	docker compose up
 

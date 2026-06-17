@@ -114,6 +114,10 @@ Apple Silicon (M1/M2) 注意点
 
 参照: Specification.md を必ず先に読み、手順に従ってください。
 
+Specification（詳細仕様）:
+- 詳細かつ公式準拠の手順、Dockerfile.dev、compose 例、ER図、Mermaid 図は Specification.md にまとめています。
+- ローカルで開く: `less Specification.md` または `cat Specification.md`
+
 ---
 
 (この README は Specification.md の要旨とサンプルを含みます。実運用では Specification.md が正本です。)
