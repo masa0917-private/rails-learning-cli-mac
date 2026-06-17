@@ -1,0 +1,17 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+      # platform: linux/arm64  # Uncomment on Apple Silicon if needed
+    command: ./bin/rails server -b 0.0.0.0 -p 3000
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/rails:delegated
+    environment:
+      RAILS_ENV: development
+    stdin_open: true
+    tty: true
+
+# For PostgreSQL migration, see Specification.md (10.3)
