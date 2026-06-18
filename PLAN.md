@@ -27,8 +27,10 @@
 
 ## チュートリアル開始前の残タスク
 必須（ブロッカー）:
-- [ ] 露出した PAT を GitHub で失効（revoke）し、必要なら再発行
-- [ ] 再構成した CI（e956d1a）のリモート実行が green か Actions で確認
+- [x] SSH（git@github.com）へ移行し push 疎通を確認（鍵 MBPro を登録）
+- [x] ローカルからPATを除去（.git/config / osxkeychain）
+- [x] 再構成した CI が green（実テスト実行構成、Gemfile.lock に x86_64-linux 追加で解消）
+- [ ] 露出した PAT を GitHub で失効（revoke）: https://github.com/settings/tokens
 
 確認済み（環境は準備完了）:
 - [x] `make build` / `db:prepare` 済み、`make up` で HTTP 200 応答
