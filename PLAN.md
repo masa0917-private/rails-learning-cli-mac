@@ -30,7 +30,7 @@
 - [x] SSH（git@github.com）へ移行し push 疎通を確認（鍵 MBPro を登録）
 - [x] ローカルからPATを除去（.git/config / osxkeychain）
 - [x] 再構成した CI が green（実テスト実行構成、Gemfile.lock に x86_64-linux 追加で解消）
-- [ ] 露出した PAT を GitHub で失効（revoke）: https://github.com/settings/tokens
+- [x] 露出した PAT を GitHub で失効（2本とも API 401 で失効確認済み）
 
 確認済み（環境は準備完了）:
 - [x] `make build` / `db:prepare` 済み、`make up` で HTTP 200 応答
