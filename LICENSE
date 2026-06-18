@@ -1,0 +1,75 @@
+Copyright (c) 2026 masa0917-private. All Rights Reserved.
+
+================================================================================
+PROPRIETARY / VIEW-ONLY LICENSE （独自・参照のみライセンス）
+================================================================================
+
+This repository is made publicly visible for reference and learning-observation
+purposes ONLY. It is NOT open source. No license under any open source definition
+(OSI / FSF) is granted.
+
+本リポジトリは、参照および学習の「閲覧」目的のためにのみ公開されています。
+オープンソースではありません。OSI / FSF が定義するいかなるオープンソース
+ライセンスも付与されません。
+
+--------------------------------------------------------------------------------
+1. PERMITTED （許可される行為）
+--------------------------------------------------------------------------------
+You MAY, free of charge:
+  - View and read the source code and documentation in this repository
+    through GitHub's web interface.
+
+あなたは無償で以下のみ行えます:
+  - GitHub のウェブ画面を通じて、本リポジトリのソースコードおよび
+    ドキュメントを閲覧・参照すること。
+
+--------------------------------------------------------------------------------
+2. PROHIBITED （禁止される行為）
+--------------------------------------------------------------------------------
+Without the prior, explicit, written permission of the copyright holder, you may
+NOT, in whole or in part:
+
+  (a) Reuse, copy, reproduce, or incorporate the code or documentation into
+      any other work or project. （再利用・複製・他のプロジェクトへの取り込み）
+  (b) Redistribute, publish, mirror, sublicense, sell, or otherwise make the
+      contents available to any third party. （再配布・公開・転載・販売）
+  (c) Use the contents for any commercial purpose. （商業利用）
+  (d) Modify, adapt, translate, or create derivative works.
+      （改変・翻案・派生物の作成）
+  (e) Use the code or documentation to train, fine-tune, or evaluate any
+      machine-learning or AI model. （AI/機械学習の学習・評価への利用）
+
+権利者の事前かつ明示的な書面による許可がない限り、上記 (a)〜(e) を、
+全部または一部を問わず行うことを禁止します。
+
+--------------------------------------------------------------------------------
+3. THIRD-PARTY COMPONENTS （第三者コンポーネント）
+--------------------------------------------------------------------------------
+Ruby, Ruby on Rails, and other dependencies referenced or included via package
+managers remain governed by their own respective licenses. This license applies
+only to the original content authored within this repository.
+
+Ruby、Ruby on Rails、およびパッケージマネージャ経由で参照・取得される依存物は、
+それぞれ固有のライセンスに従います。本ライセンスは、本リポジトリ内で
+オリジナルに作成されたコンテンツにのみ適用されます。
+
+--------------------------------------------------------------------------------
+4. NO WARRANTY （無保証）
+--------------------------------------------------------------------------------
+THE CONTENT IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED. IN NO EVENT SHALL THE COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES,
+OR OTHER LIABILITY ARISING FROM, OUT OF, OR IN CONNECTION WITH THE CONTENT OR THE
+USE OF THE CONTENT.
+
+本コンテンツは現状有姿（"AS IS"）で提供され、明示黙示を問わずいかなる保証も
+ありません。権利者は、本コンテンツまたはその利用に起因・関連する一切の請求・
+損害・責任を負いません。
+
+--------------------------------------------------------------------------------
+5. CONTACT （許可の問い合わせ）
+--------------------------------------------------------------------------------
+To request permission for any use beyond Section 1, contact the copyright holder
+via GitHub: https://github.com/masa0917-private
+
+第1項を超える利用の許可を求める場合は、GitHub を通じて権利者に連絡してください:
+https://github.com/masa0917-private

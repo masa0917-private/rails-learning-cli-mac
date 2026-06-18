@@ -1,4 +1,13 @@
 [![CI](https://github.com/masa0917-private/rails-learning-cli-mac/actions/workflows/ci.yml/badge.svg)](https://github.com/masa0917-private/rails-learning-cli-mac/actions/workflows/ci.yml)
+[![License: View-Only](https://img.shields.io/badge/License-View--Only%20(All%20Rights%20Reserved)-red.svg)](LICENSE)
+
+> ⚠️ **参照のみ可 / VIEW-ONLY**
+> このリポジトリは **閲覧・参照のみ** 許可されており、**オープンソースではありません**。
+> **再利用・複製・再配布・商業利用・改変・派生物作成・AI 学習への利用はすべて禁止**です。
+> 詳細は [`LICENSE`](LICENSE) / [`.github/TERMS_OF_USE.md`](.github/TERMS_OF_USE.md) を参照してください。
+>
+> This repository is **VIEW-ONLY** and **NOT open source**. Reuse, copying, redistribution,
+> commercial use, modification, and AI training are all prohibited. See [`LICENSE`](LICENSE).
 
 # Rails (CLI + Docker Compose) 学習リポジトリ
 
@@ -236,3 +245,14 @@ docker compose -f blog/compose.yaml run --rm web ./bin/rails db:prepare
 補足: Specification.md が正本です。README はクイックスタートと要点をまとめたものです。
 
 参考: Specification.md を先に読み、手順に従ってください。
+ライセンス / License
+
+このリポジトリは **参照・閲覧目的でのみ公開** されており、オープンソースではありません。
+**再利用・再配布・商業利用・改変は禁止**です。詳細は [`LICENSE`](LICENSE) を参照してください。
+
+- 許可: GitHub 上での閲覧・参照のみ
+- 禁止: 再利用 / 複製 / 再配布 / 商業利用 / 改変 / 派生物作成 / AI 学習への利用
+- 例外的な利用には権利者（[masa0917-private](https://github.com/masa0917-private)）の事前の書面許可が必要です。
+
+This repository is published for **reference / viewing only** and is **not** open source.
+Reuse, redistribution, commercial use, and modification are prohibited. See [`LICENSE`](LICENSE).
