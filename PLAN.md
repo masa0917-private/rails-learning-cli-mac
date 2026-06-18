@@ -35,6 +35,7 @@
 - `blog/Gemfile.lock` を生成・コミット
 - CI は `blog/` を作業ディレクトリとして Ruby 3.3.11 + SQLite で `db:prepare` と `rails test` を実行（実テストが走る構成）
 - Makefile は `blog/compose.yaml` を対象に動作（`docker compose -f blog/compose.yaml ...`）
+- Copilot 最適化を追加（repo instructions / path-specific instructions / `rails-tutor` agent / `/rails-tutorial` prompt）
 
 ## チュートリアル開始前の残タスク
 必須（ブロッカー）:
@@ -55,6 +56,7 @@
 - Rails Guides: Getting Started を blog/ 上で実施（最初の Article モデル作成から）
 - 主要チェックポイント（`make up`、`make db-prepare`、`make test`）を通過する
 - CI の安定運用（週次 run でのチェック）
+- Copilot を使う場合は `rails-tutor` agent または `/rails-tutorial` prompt から開始する
 
 ## 運用ノート
 - Apple Silicon 上は buildx や platform 指定が役に立つ
