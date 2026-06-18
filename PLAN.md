@@ -57,6 +57,7 @@
 - Copilot 最適化を追加（repo instructions / AGENTS.md / path-specific instructions / VS Code 用 `rails-tutor` agent・`/rails-tutorial` prompt）。CLI では `copilot-instructions.md` / `AGENTS.md` / `instructions/*` が有効、agent・prompt は VS Code 専用
 - 学習計画を公式「Getting Started」全23章にマップ（A方針: 現環境 Rails 7.1/blog 維持、題材 store/products は読み替え、8.x 固有章は 7.1 差分メモで対応）
 - Copilot 指示をモデル非依存化（固定応答フォーマット・章マップ参照・明示ルール）。ChatGPT 5.4 でも Claude Opus 4.8 と同等挙動を狙う
+- 中断・復帰体制を実装（`PROGRESS.md` 進捗トラッカー / `RECOVERY.md` 復帰ランブック / `compose.yaml` restart: unless-stopped / `make status`・`make resume` / AGENTS.md 再開プロトコル）
 
 ## チュートリアル開始前の残タスク
 必須（ブロッカー）:

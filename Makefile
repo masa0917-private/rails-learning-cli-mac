@@ -3,7 +3,7 @@
 APP_DIR := blog
 COMPOSE := docker compose -f $(APP_DIR)/compose.yaml
 
-.PHONY: help build buildx setup lint rubocop yarn-install up up-detach down rebuild db-prepare console test shell ps rake logs
+.PHONY: help build buildx setup lint rubocop yarn-install up up-detach down rebuild db-prepare console test shell ps rake logs status resume
 
 build:
 	$(COMPOSE) build
@@ -54,6 +54,22 @@ shell:
 logs:
 	$(COMPOSE) logs --no-color --tail=200
 
+status:
+	@echo "== git ==" && git -C . status -sb | head -1
+	@echo "== container ==" && $(COMPOSE) ps
+	@echo "== http ==" && curl -s -o /dev/null -w "http://localhost:3000 -> %{http_code}\n" http://localhost:3000 || true
+
+resume:
+	@echo "== 学習再開チェック =="
+	@$(COMPOSE) up -d
+	@printf "起動待ち"; for i in 1 2 3 4 5 6 7 8 9 10; do \
+		code=$$(curl -s -o /dev/null -w "%{http_code}" http://localhost:3000); \
+		if [ "$$code" = "200" ]; then echo " -> http://localhost:3000 = 200 OK"; break; fi; \
+		printf "."; sleep 2; \
+		if [ "$$i" = "10" ]; then echo " -> まだ $$code（`make logs` で確認してください）"; fi; \
+	done
+	@echo "次に: cat PROGRESS.md で続きを確認し、'copilot --continue' で学習を再開してください"
+
 help:
 	@echo "Available targets:"
 	@echo "  help        - Show this help"
@@ -70,6 +86,8 @@ help:
 	@echo "  test        - Run rails test for blog/"
 	@echo "  shell       - Open a shell in the running blog container"
 	@echo "  logs        - Show recent container logs"
+	@echo "  status      - Show git/container/http status"
+	@echo "  resume      - Start app and print how to resume learning"
 	@echo "  ps          - Show compose status"
 
 ps:

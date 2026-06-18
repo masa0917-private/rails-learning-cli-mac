@@ -1,5 +1,5 @@
 ---
-applyTo: "README.md,PLAN.md,Specification.md,AGENTS.md,.github/copilot-instructions.md,.github/prompts/**/*.md,.github/agents/**/*.md"
+applyTo: "README.md,PLAN.md,PROGRESS.md,RECOVERY.md,Specification.md,AGENTS.md,.github/copilot-instructions.md,.github/prompts/**/*.md,.github/agents/**/*.md"
 ---
 
 # Documentation consistency instructions

@@ -52,17 +52,28 @@ Default to **Japanese** unless the user asks otherwise.
 - Favor `bin/rails generate`, resourceful routes, strong parameters, standard controllers, Active Record validations, and partials/helpers before custom abstractions.
 - Avoid jumping to service objects, custom architecture layers, background jobs, or non-default gems unless the user explicitly asks for them or the tutorial has already reached that stage.
 
+## Session resume protocol (interruption / sleep / reboot)
+
+- At the start of a session (especially when the user says "resume"/"続き"), read `PROGRESS.md` for the current chapter and next step.
+- Verify the environment with `make status` (or `make resume`); expect `http://localhost:3000` to return 200.
+- Continue from the "次の一手" in `PROGRESS.md` unless the user specifies a chapter.
+- After finishing a chapter, update `PROGRESS.md` (current chapter, done, next step, checklist) and suggest a git commit.
+- For any interruption/recovery question, follow `RECOVERY.md` as the source of truth.
+
 ## Repository navigation
 
 - `README.md` is the entry point for the repository purpose, startup flow, and Copilot usage.
-- `PLAN.md` is the learning plan, progress tracker, and next-step guide.
+- `PLAN.md` is the learning plan and 23-chapter map.
+- `PROGRESS.md` is the progress tracker (current chapter, next step) — read it every session.
+- `RECOVERY.md` is the runbook for interruption, sleep, and reboot recovery.
 - `Specification.md` is the authoritative environment and workflow specification.
-- Keep those three documents aligned when workflow, architecture, or learning steps change.
+- Keep these documents aligned when workflow, architecture, or learning steps change.
 
 ## Safety and recovery
 
 - Respect the clean baseline tag: `rails-learning-clean-baseline-2026-06-18`.
 - Only suggest destructive recovery commands such as `git reset --hard` or `docker compose ... down -v` when the user explicitly wants to restore the clean baseline or accepts the data loss.
+- The Rails container uses `restart: unless-stopped`, so it auto-restarts after sleep/reboot once Docker Desktop is running.
 
 ## Validation
 

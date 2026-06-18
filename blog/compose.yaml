@@ -5,6 +5,9 @@ services:
       dockerfile: Dockerfile.dev
       # platform: linux/arm64  # Uncomment on Apple Silicon if needed
     command: ./bin/rails server -b 0.0.0.0 -p 3000
+    # OSスリープ/再起動後、Docker Desktop 起動時にコンテナを自動再開する
+    # （手動 `make down` で止めた場合は再開しない）
+    restart: unless-stopped
     ports:
       - "3000:3000"
     volumes:
@@ -14,4 +17,4 @@ services:
     stdin_open: true
     tty: true
 
-# For PostgreSQL migration, see Specification.md (10.3)
+# For PostgreSQL migration, see Specification.md (11.3)

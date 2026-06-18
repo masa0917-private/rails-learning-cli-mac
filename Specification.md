@@ -403,6 +403,13 @@ docker compose up
 | app が起動しない | migration 未実行 | `db:prepare` |
 | `exec` できない | `web` が起動していない | `docker compose up` |
 
+### 中断・スリープ・再起動からの復帰
+
+- `blog/compose.yaml` の `web` は `restart: unless-stopped` を設定。OS スリープ復帰や Mac 再起動後、Docker Desktop 起動時にコンテナが自動再開する（手動 `make down` で止めた場合を除く）。
+- 復帰の標準手順・Copilot の再開方法（`copilot --continue` / `--resume`）・進捗管理は、リポジトリルートの **`RECOVERY.md`** を正本とする。
+- 学習の進捗は **`PROGRESS.md`** に記録し、セッションやモデルが変わっても再開できるようにする。
+- 最短復帰: `cd ~/Documents/Rails && make resume && copilot --continue`。
+
 ---
 
 ## 8. Rails 学習計画
