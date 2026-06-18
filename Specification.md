@@ -1,6 +1,28 @@
 # Ruby on Rails 学習仕様書（CLI + Docker Compose）
 
-## 0. 結論と最終バリデーション
+## 0. この仕様書の目的
+
+この仕様書のテーマは、**「目的：Ruby on Rails の学習と、学習のための環境構築」** です。  
+本リポジトリでは、Rails 公式ドキュメントを主教材にしつつ、CLI + Docker Compose で再現可能な学習環境を維持することを目的とします。
+
+## 0.1 学習プラン（要約）
+
+| フェーズ | 学習テーマ | この仕様書で扱う内容 |
+|---|---|---|
+| 1 | 環境構築 | Docker Desktop, `rails-new`, `blog/`, `Dockerfile.dev`, `compose.yaml` |
+| 2 | Ruby / Rails 基礎 | CLI 操作前提、SQLite 起点、公式 Guides の読み進め方 |
+| 3 | CRUD / MVC / Testing | `blog/` を使った学習の土台、完成条件、進捗可視化 |
+| 4 | 発展 | Hotwire / PostgreSQL への拡張指針 |
+
+## 0.2 ドキュメント内での役割
+
+- `README.md`: 全体像とクイックスタート
+- `PLAN.md`: 学習順序・進捗・次アクション
+- `Specification.md`（この文書）: 環境構築と運用の正本
+
+---
+
+## 1. 結論と最終バリデーション
 
 **前版の仕様書には重大な問題があり、そのままでは 100% 妥当ではありませんでした。**  
 この版ではその問題を修正し、**「Rails公式を主教材にしつつ、環境は VS Code ではなく Docker Compose + CLI に寄せる」** を満たすように再定義しています。
@@ -22,7 +44,7 @@
 
 ---
 
-## 1. 目的
+## 2. 目的
 
 1. Ruby on Rails を **CLI 中心** で学習する
 2. ホストに Ruby / Rails / gem / DB を常設しない
@@ -32,7 +54,7 @@
 
 ---
 
-## 2. 根拠にした一次情報
+## 3. 根拠にした一次情報
 
 1. **Rails Guides**
    - Getting Started
@@ -52,7 +74,7 @@
 
 ---
 
-## 3. 適用範囲
+## 4. 適用範囲
 
 ### 含む
 
@@ -70,7 +92,7 @@
 
 ---
 
-## 4. 前提
+## 5. 前提
 
 ### 必須ツール
 
@@ -91,7 +113,7 @@
 
 ---
 
-## 5. ディレクトリ仕様
+## 6. ディレクトリ仕様
 
 ```text
 ~/Documents/Rails/
@@ -121,9 +143,9 @@
 
 ---
 
-## 6. CLI-only Compose 初期構築仕様
+## 7. CLI-only Compose 初期構築仕様
 
-## 6.1 新規 app 生成
+## 7.1 新規 app 生成
 
 > 注: 本リポジトリにはサンプルアプリ `blog/`（Rails 7.1 / Ruby 3.3.11 / SQLite）が既に同梱されています。以下は生成手順の記録であり、再生成は不要です。Compose コマンドは `~/Documents/Rails/blog/` 配下、またはルートの `make`（`docker compose -f blog/compose.yaml ...`）経由で実行します。
 
@@ -151,7 +173,7 @@ flowchart LR
 
 ---
 
-## 6.2 開発用 `Dockerfile.dev` を作成
+## 7.2 開発用 `Dockerfile.dev` を作成
 
 **理由**: Rails生成 `Dockerfile` は production 用であり、開発で必要な gem / build tool / 実行方式に合わないため。
 
@@ -214,7 +236,7 @@ flowchart TD
     class A,B,C,D,E ok;
 ```
 
-### 6.2.1 Apple Silicon (M1/M2) 最適化
+### 7.2.1 Apple Silicon (M1/M2) 最適化
 
 - 要旨: Apple Silicon (arm64) 上の macOS では、デフォルトのビルド/イメージが amd64 をターゲットにする場合があるため、明示的に arm64 を指定するか、マルチプラットフォームでビルドする必要がある。以下は実践手順と注意点。
 
@@ -245,7 +267,7 @@ docker buildx build --platform linux/arm64,linux/amd64 --load -t rails-blog:dev 
 
 ---
 
-## 6.3 `compose.yaml` を作成
+## 7.3 `compose.yaml` を作成
 
 ### `compose.yaml`
 
@@ -294,7 +316,7 @@ flowchart LR
 
 ---
 
-## 6.4 初回 build / 起動 / DB準備
+## 7.4 初回 build / 起動 / DB準備
 
 ```bash
 docker compose build
@@ -327,7 +349,7 @@ journey
 
 ---
 
-## 6.5 日常運用コマンド
+## 7.5 日常運用コマンド
 
 ### 単発コマンド
 
@@ -363,7 +385,7 @@ docker compose up --build
 
 ---
 
-## 6.6 障害時の回復手順
+## 7.6 障害時の回復手順
 
 ```bash
 docker compose down
@@ -383,7 +405,7 @@ docker compose up
 
 ---
 
-## 7. Rails 学習計画
+## 8. Rails 学習計画
 
 **期間**: 12週間  
 **学習時間**: 週 5〜6 時間  
@@ -421,7 +443,7 @@ flowchart TD
 
 ---
 
-## 8. 各ステップの完成条件
+## 9. 各ステップの完成条件
 
 | ステップ | 完成条件 |
 |---|---|
@@ -448,9 +470,9 @@ flowchart LR
 
 ---
 
-## 9. ER図: 学習段階ごとの完成像
+## 10. ER図: 学習段階ごとの完成像
 
-## 9.1 Step 5: 単一モデル CRUD
+## 10.1 Step 5: 単一モデル CRUD
 
 ```mermaid
 erDiagram
@@ -463,7 +485,7 @@ erDiagram
     }
 ```
 
-## 9.2 Step 6-7: 関連とフォーム
+## 10.2 Step 6-7: 関連とフォーム
 
 ```mermaid
 erDiagram
@@ -497,7 +519,7 @@ erDiagram
     }
 ```
 
-## 9.3 Step 11-12: 発展後の完成形
+## 10.3 Step 11-12: 発展後の完成形
 
 ```mermaid
 erDiagram
@@ -540,23 +562,23 @@ erDiagram
 
 ---
 
-## 10. PostgreSQL 移行仕様
+## 11. PostgreSQL 移行仕様
 
 > 注: この章は **発展（将来）課題** です。現在のサンプルアプリ `blog/` は SQLite 構成であり、CI も SQLite でのみ実行します。PostgreSQL への移行は学習後半で着手する想定で、`blog/` にはまだ適用されていません。
 
-## 10.1 移行理由
+## 11.1 移行理由
 
 - Rails 学習初期は SQLite の方が単純
 - DB service, 認証情報, network を後半で学ぶ方が理解しやすい
 
-## 10.2 変更点
+## 11.2 変更点
 
 1. `Gemfile` の `sqlite3` を `pg` へ変更
 2. `config/database.yml` を PostgreSQL 用に更新
 3. `compose.yaml` に `db` service を追加
 4. image を再 build
 
-## 10.3 `compose.yaml`（PostgreSQL版）
+## 11.3 `compose.yaml`（PostgreSQL版）
 
 ```yaml
 services:
@@ -593,14 +615,14 @@ volumes:
   postgres_data:
 ```
 
-## 10.4 `config/database.yml` の要件
+## 11.4 `config/database.yml` の要件
 
 - `adapter: postgresql`
 - `host: <%= ENV["DB_HOST"] %>`
 - `username: <%= ENV["POSTGRES_USER"] %>`
 - `password: <%= ENV["POSTGRES_PASSWORD"] %>`
 
-## 10.5 移行コマンド
+## 11.5 移行コマンド
 
 ```bash
 docker compose build
@@ -611,7 +633,7 @@ docker compose up
 
 ---
 
-## 11. リスクと対策
+## 12. リスクと対策
 
 | リスク | 対策 |
 |---|---|
@@ -623,7 +645,7 @@ docker compose up
 
 ---
 
-## 12. 推奨教材順
+## 13. 推奨教材順
 
 1. Rails Guides: Getting Started
 2. Rails Guides: Command Line
@@ -636,7 +658,7 @@ docker compose up
 
 ---
 
-## 13. 最終判定
+## 14. 最終判定
 
 **この仕様書は妥当です。**  
 前版の破綻点だった **本番用 Dockerfile の誤用**, **gem volume の初期設計ミス**, **PostgreSQL移行の不足**, **Compose 起動仕様の曖昧さ** を解消しています。

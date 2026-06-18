@@ -2,12 +2,30 @@
 
 # Rails (CLI + Docker Compose) 学習リポジトリ
 
-このリポジトリは「CLI中心・Docker Composeで隔離されたRails学習環境」を目的としたテンプレート／仕様です。
+このリポジトリのテーマは、**「目的：Ruby on Rails の学習と、学習のための環境構築」** です。
+CLI 中心・Docker Compose による隔離環境を使い、Rails 公式ドキュメントを主教材として段階的に学習できるように設計しています。
 
 主な目的
 - Rails公式ドキュメントを主教材とした学習を行う
 - ホスト環境を汚さない（Ruby/Rails/DBはコンテナ内へ）
 - VS Code Dev Container に依存しない CLI-first ワークフロー
+
+学習プラン（入口）
+
+| フェーズ | 学習テーマ | まず読むドキュメント |
+|---|---|---|
+| 1 | 環境構築 | README.md / Specification.md |
+| 2 | Ruby / Rails 基礎 | PLAN.md / Rails Guides |
+| 3 | CRUD / MVC / Testing | PLAN.md / `blog/` |
+| 4 | 発展（Hotwire / PostgreSQL） | PLAN.md / Specification.md |
+
+ドキュメント構成
+
+| ドキュメント | 役割 | 推奨タイミング |
+|---|---|---|
+| `README.md` | 全体像、学習テーマ、起動方法、復元方法の入口 | 最初に読む |
+| `PLAN.md` | 学習プラン、進捗、次アクションの管理 | 学習開始前と節目ごと |
+| `Specification.md` | 環境構築の正本、設計理由、構成の根拠 | 環境変更前・詳細確認時 |
 
 Prerequisites
 - Docker Desktop（macOS/Windows/Linux）
@@ -147,6 +165,28 @@ Start here — Rails チュートリアルの開始点
 - 公式チュートリアル（Getting Started）を最初に行ってください: https://guides.rubyonrails.org/getting_started.html
 - 推奨フロー: Specification.md を読み、リポジトリ内の `blog/` を使ってローカルで手を動かしながら進めると良いです。
 - 週次チェック: CI は週次で自動実行されます（Schedule: Sunday 00:00 UTC）。ローカル変更は push して CI をトリガーしてください。
+
+クリーン基準点（チュートリアル開始前の復元用）
+
+- チュートリアル開始前の最もクリーンな状態を Git タグ **`rails-learning-clean-baseline-2026-06-18`** として記録しています。
+- 基準点の内容: SSH移行済み、PAT失効確認済み、CI green、Docker Desktop 復旧確認済み、Rails app が HTTP 200 を返す状態。
+- 以後、学習中に状態を戻したくなった場合はこのタグを基準に復元できます。
+
+復元コマンド（破壊的）
+
+```bash
+cd ~/Documents/Rails
+git fetch --tags
+git reset --hard rails-learning-clean-baseline-2026-06-18
+docker compose -f blog/compose.yaml down -v
+docker compose -f blog/compose.yaml up --build -d
+docker compose -f blog/compose.yaml run --rm web ./bin/rails db:prepare
+```
+
+注意:
+- `git reset --hard` は未コミット変更を破棄します。
+- `docker compose ... down -v` はこの学習環境のコンテナ/volume を削除します。
+- 私に **「clean baseline に戻して」** と指示すれば、このタグを基準に復元方針で対応します。
 
 トラブルシュート（よくある問題）
 
