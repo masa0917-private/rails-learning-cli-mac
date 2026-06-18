@@ -25,9 +25,22 @@
 - CI は `blog/` を作業ディレクトリとして Ruby 3.3.11 + SQLite で `db:prepare` と `rails test` を実行（実テストが走る構成）
 - Makefile は `blog/compose.yaml` を対象に動作（`docker compose -f blog/compose.yaml ...`）
 
+## チュートリアル開始前の残タスク
+必須（ブロッカー）:
+- [ ] 露出した PAT を GitHub で失効（revoke）し、必要なら再発行
+- [ ] 再構成した CI（e956d1a）のリモート実行が green か Actions で確認
+
+確認済み（環境は準備完了）:
+- [x] `make build` / `db:prepare` 済み、`make up` で HTTP 200 応答
+- [x] `rails test` がコンテナ内で実行可能（現状 0 tests）
+
+チュートリアル運用準備（任意・推奨）:
+- [ ] Copilot CLI を待機状態にする運用を決める（別タブ/別ウィンドウ or tmux、/autopilot off）
+- [ ] チュートリアル教材を Getting Started に確定: https://guides.rubyonrails.org/getting_started.html
+
 ## 次のアクション
-- Rails Guides: Getting Started を blog/ 上で実施
-- 主要チェックポイント（`docker compose up`、`db:prepare`、`rails test`）を通過する
+- Rails Guides: Getting Started を blog/ 上で実施（最初の Article モデル作成から）
+- 主要チェックポイント（`make up`、`make db-prepare`、`make test`）を通過する
 - CI の安定運用（週次 run でのチェック）
 
 ## 運用ノート
