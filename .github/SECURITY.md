@@ -31,3 +31,27 @@ https://github.com/masa0917-private
 
 This repository must not contain secrets (tokens, keys, passwords). If you find any
 accidentally committed, report it through the private channel above.
+
+## フォーク・複製への免責 / No liability for forks and copies
+
+権利者は、第三者が作成した本リポジトリの **フォーク・複製・ミラー・改変・派生物
+（許可の有無を問わない）** について、一切の管理権を持たず、それらの内容・安全性・
+利用に起因する請求・損害・責任を **一切負いません**。詳細は [`LICENSE`](../LICENSE)
+の No Warranty / No Liability 条項を参照してください。
+
+The copyright holder has no control over, and accepts **no responsibility or
+liability** for, any fork, copy, mirror, modification, or derivative work of this
+repository made by third parties (whether authorized or not), including their
+content, security, or any use made of them. See the No Warranty / No Liability
+sections of [`LICENSE`](../LICENSE).
+
+## 多層防御メモ / Hardening Notes
+
+- 依存関係の更新は Dependabot（[`.github/dependabot.yml`](dependabot.yml)）で監視。
+- `.gitignore` で秘密・環境ファイル（`.env`, `config/master.key` など）を除外。
+- 本リポジトリは学習用であり、ネットワーク公開サービスを想定していません。
+
+- Dependency updates are monitored via Dependabot
+  ([`.github/dependabot.yml`](dependabot.yml)).
+- `.gitignore` excludes secret/env files (e.g. `.env`, `config/master.key`).
+- This is a learning repository and is not intended as a network-exposed service.

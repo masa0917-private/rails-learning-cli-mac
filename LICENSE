@@ -61,9 +61,19 @@ IMPLIED. IN NO EVENT SHALL THE COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES
 OR OTHER LIABILITY ARISING FROM, OUT OF, OR IN CONNECTION WITH THE CONTENT OR THE
 USE OF THE CONTENT.
 
+This disclaimer also applies to any fork, copy, mirror, modification, or
+derivative work of this repository made by any third party, whether authorized
+or not. The copyright holder has no control over, and accepts no responsibility
+or liability for, such forks or copies or for any use made of them by others.
+
 本コンテンツは現状有姿（"AS IS"）で提供され、明示黙示を問わずいかなる保証も
 ありません。権利者は、本コンテンツまたはその利用に起因・関連する一切の請求・
 損害・責任を負いません。
+
+この免責は、第三者が作成した本リポジトリの **フォーク・複製・ミラー・改変・
+派生物（許可の有無を問わない）** にも適用されます。権利者はそれらフォークや
+コピー、ならびに第三者によるその利用について、一切の管理権を持たず、いかなる
+責任・賠償義務も負いません。
 
 --------------------------------------------------------------------------------
 5. CONTACT （許可の問い合わせ）

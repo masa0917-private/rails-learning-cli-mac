@@ -51,6 +51,15 @@ apply only to original content authored in this repository.
 
 The content is provided "AS IS" without warranty of any kind.
 
+この免責は、第三者が作成した本リポジトリの **フォーク・複製・ミラー・改変・派生物
+（許可の有無を問わない）** にも適用されます。権利者はそれらフォークやコピー、および
+第三者によるその利用について、一切の管理権を持たず、いかなる責任・賠償義務も負いません。
+
+This disclaimer also applies to any fork, copy, mirror, modification, or derivative
+work made by third parties (whether authorized or not). The copyright holder has no
+control over, and accepts no responsibility or liability for, such forks or copies
+or for any use made of them by others.
+
 ## 5. 許可の問い合わせ / Requesting Permission
 
 第1項を超える利用を希望する場合は、GitHub を通じて権利者に連絡してください。

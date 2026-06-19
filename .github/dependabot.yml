@@ -1,0 +1,28 @@
+version: 2
+updates:
+  # Ruby の依存（Bundler / Gemfile）を監視
+  - package-ecosystem: "bundler"
+    directory: "/blog"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+
+  # Dockerfile のベースイメージ更新を監視
+  - package-ecosystem: "docker"
+    directory: "/blog"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+      - "docker"
+
+  # GitHub Actions ワークフローを監視
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+      - "github-actions"
