@@ -7,8 +7,11 @@
 ## 現在地
 
 - 現在の章: **第5章 Creating a Database Model（未着手）**
-- 直近に完了したこと: 環境構築・ドキュメント整備・Copilot 最適化（学習本体は未開始）
-- 次の一手: `make shell` で `bin/rails generate model Post title:string body:text` を実行する
+- 直近に完了したこと: 環境構築・ドキュメント整備・Copilot 最適化／リポジトリ公開準備（View-Only ライセンス・利用規約・SECURITY 追加、個人メールを履歴から除去）。学習本体は未開始
+- 次の一手: 環境を起動して第5章に入る。リポジトリのルートで以下を順に実行する。
+  1. `make up-detach`（または `make status` で `http://localhost:3000` が 200 か確認）
+  2. `make shell` で `bin/rails generate model Post title:string body:text` を実行
+  3. `make db-prepare` でマイグレーションを適用
 - 主教材リンク: https://guides.rubyonrails.org/getting_started.html
 - 学習順序の正本: `PLAN.md` の「学習計画（公式 Getting Started 準拠 / 全23章マップ）」
 
